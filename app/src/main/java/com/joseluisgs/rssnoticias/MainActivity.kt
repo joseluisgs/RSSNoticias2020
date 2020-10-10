@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 				this.abrirAcercaDe()
 				return true
 			}
+			R.id.menu_atras -> {
+				onBackPressed()
+				return true
+			}
 			else -> super.onOptionsItemSelected(item)
 		}
 	}
