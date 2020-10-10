@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.joseluisgs.rssnoticias.MainActivity
 import com.joseluisgs.rssnoticias.R
+import com.joseluisgs.rssnoticias.utils.Utils
+import kotlinx.android.synthetic.main.fragment_acerca_de.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +47,19 @@ class AcercaDeFragment : Fragment() {
 	private fun initUI() {
 		// inicializamos el menu
 		initMenuOpciones()
+		// Eventos de boyones
+		initBotonesEventos()
+	}
+
+	/**
+	 * Inicia los eventos de botones y su funcionalidad
+	 */
+	private fun initBotonesEventos() {
+		acercaDeBtnCorreo.setOnClickListener {
+			Utils.mandarEMail(activity, para = "dam@moviles.com", asunto ="contacto")
+		}
+		acercaDeViewGitHub.setOnClickListener { Utils.abrirURL(activity, "https://github.com/joseluisgs") }
+		acercaDeViewTwitter.setOnClickListener { Utils.abrirURL(activity, "https://twitter.com/joseluisgonsan") }
 	}
 
 	/**
