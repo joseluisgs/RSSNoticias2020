@@ -45,6 +45,8 @@ class AcercaDeFragment : Fragment() {
 	 * Inicializamos los elementos de la IU
 	 */
 	private fun initUI() {
+		// Desactivamos los eventos de fila
+		(activity as MainActivity?)!!.isClicEventoFila = false
 		// inicializamos el menu
 		initMenuOpciones()
 		// Eventos de boyones
@@ -58,16 +60,16 @@ class AcercaDeFragment : Fragment() {
 		acercaDeBtnCorreo.setOnClickListener {
 			Utils.mandarEMail(activity, para = "dam@moviles.com", asunto ="contacto")
 		}
-		acercaDeViewGitHub.setOnClickListener { Utils.abrirURL(activity, "https://github.com/joseluisgs") }
-		acercaDeViewTwitter.setOnClickListener { Utils.abrirURL(activity, "https://twitter.com/joseluisgonsan") }
+		acercaDeViewGitHub.setOnClickListener { Utils.abrirURL(activity!!, "https://github.com/joseluisgs") }
+		acercaDeViewTwitter.setOnClickListener { Utils.abrirURL(activity!!, "https://twitter.com/joseluisgonsan") }
 	}
 
 	/**
 	 * Muestra el menú con las opciones
 	 */
 	private fun initMenuOpciones() {
-		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_atras).isVisible = true
-		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_acerca_de).isVisible = false
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_atras).isVisible = true
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_acerca_de).isVisible = false
 	}
 
 

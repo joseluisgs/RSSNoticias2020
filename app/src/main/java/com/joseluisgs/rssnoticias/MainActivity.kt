@@ -6,16 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
 
 
 class MainActivity : AppCompatActivity() {
 
 	// Elementos a usar
-	public var menu: Menu? = null
+	public lateinit var menu: Menu
 		private set
+
+	public var isClicEventoFila = true
+	public lateinit var noticiaActual: Noticia
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
 			}
 			R.id.menu_atras -> {
 				onBackPressed()
+				this.isClicEventoFila = true
 				return true
 			}
 			else -> super.onOptionsItemSelected(item)
@@ -53,10 +56,10 @@ class MainActivity : AppCompatActivity() {
 	 * Oculta las opciones del menú
 	 */
 	private fun initMenuOpciones() {
-        this.menu?.findItem(R.id.menu_atras)?.isVisible = false
-        this.menu?.findItem(R.id.menu_settings)?.isVisible = false
-        this.menu?.findItem(R.id.menu_compartir_noticia)?.isVisible = false
-		this.menu?.findItem(R.id.menu_acerca_de)?.isVisible = true
+        this.menu.findItem(R.id.menu_atras).isVisible = false
+        this.menu.findItem(R.id.menu_settings).isVisible = false
+        this.menu.findItem(R.id.menu_compartir_noticia).isVisible = false
+		this.menu.findItem(R.id.menu_acerca_de).isVisible = true
 	}
 
 

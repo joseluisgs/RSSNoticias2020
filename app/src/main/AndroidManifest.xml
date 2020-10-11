@@ -2,12 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.joseluisgs.rssnoticias">
 
+<!--    Nuestros permisos-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Muy importante la clausula usesCleartextTraffic para permitirnos acceder a recurso background que no son https
+    si no no podrás porque lo capa por seguridad -->
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+            android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
         <!-- Ponemos de comienzo la actividad Splash que llama a la main -->
         <activity android:name=".SplashActivity">
