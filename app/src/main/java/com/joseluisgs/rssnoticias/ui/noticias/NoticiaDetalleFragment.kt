@@ -1,18 +1,21 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
 import com.joseluisgs.rssnoticias.R
+import kotlinx.android.synthetic.main.fragment_noticia_detalle.*
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.joseluisgs.rssnoticias.MainActivity
 import com.joseluisgs.rssnoticias.rss.Noticia
+import com.joseluisgs.rssnoticias.utils.Utils
 import com.squareup.picasso.Picasso
 
 
@@ -29,7 +32,6 @@ class NoticiaDetalleFragment : Fragment {
 	// Constructores
 	constructor(noticia: Noticia?) {
 		this.noticia = noticia
-		noticiaActual = noticia
 	}
 
 	constructor() {}
@@ -44,15 +46,30 @@ class NoticiaDetalleFragment : Fragment {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+		// Iniciamos la IU
+		initUI()
+	}
+
+	/**
+	 * Iniciamos la intrfaz
+	 */
+	private fun initUI() {
+		// Actualizamos el menú
+		initMenuOpciones()
 		// Obtenemos los elementos de la interfaz
 		iniciarComponentesIU()
 		// iniciamos los eventos Asociados
-		iniciarEventosIU()
-		// Procesamos la noticia
+		initBotonesEventos()
+		// Procesamos la noticia como interfaz
 		procesarNoticia()
-		//Para mostrar el item de compartir
-		// Elementos de la interfaz
-		actualizarInterfaz()
+	}
+
+	/**
+	 * Muestra el menú con las opciones
+	 */
+	private fun initMenuOpciones() {
+		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_atras).isVisible = true
+		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_compartir_noticia).isVisible = true
 	}
 
 
@@ -60,65 +77,26 @@ class NoticiaDetalleFragment : Fragment {
 	 * Inicia la componentes de la IU
 	 */
 	private fun iniciarComponentesIU() {
-		tvDetalleTitulo = getView().findViewById(R.id.tvNoticiaDetalleTitular)
-		wvDetalleContenido = getView().findViewById(R.id.wvNoticiaDetalleContenido)
-		ivDetalleImagen = getView().findViewById(R.id.ivNoticiaDetalleImagen)
-		fabDetallesIr = getView().findViewById(R.id.fabNoticiaDetalleIr)
+		tvDetalleTitulo = view?.findViewById(R.id.tvNoticiaDetalleTitular)
+		wvDetalleContenido = view?.findViewById(R.id.wvNoticiaDetalleContenido)
+		ivDetalleImagen = view?.findViewById(R.id.ivNoticiaDetalleImagen)
+		fabDetallesIr = view?.findViewById(R.id.fabNoticiaDetalleIr)
 	}
 
 	/**
 	 * Inicia los Eventos de la IU
 	 */
-	private fun iniciarEventosIU() {
-		// Enviamos el email
-		fabDetallesIr!!.setOnClickListener(object : OnClickListener() {
-			fun onClick(v: View?) {
-				abrirEnlaceNavegador(noticia!!.link)
-			}
-		})
+	private fun initBotonesEventos() {
+		// Abrimos la noticia
+		fabDetallesIr!!.setOnClickListener { Utils.abrirURL(activity, noticia!!.link) }
 	}
 
 	/**
 	 * Procesamos una noticia
 	 */
 	private fun procesarNoticia() {
-		tvDetalleTitulo!!.text = noticia!!.titulo
-		wvDetalleContenido!!.loadData(noticia!!.contenido, "text/html", null)
-		Picasso.get().load(noticia!!.imagen).into(ivDetalleImagen)
-	}
-
-	/**
-	 * Llamamos al navegador con un enlace
-	 *
-	 * @param enlance
-	 */
-	private fun abrirEnlaceNavegador(enlance: String) {
-		val uri: Uri = Uri.parse(enlance)
-		val intent = Intent(Intent.ACTION_VIEW, uri)
-		startActivity(intent)
-	}
-
-	/**
-	 * ACtualizamos la interfaz de usuario
-	 */
-	private fun actualizarInterfaz() {
-		// Oculto lo que no me interesa
-		(getActivity() as MainActivity).ocultarElementosIU()
-
-		// Muestro los elementos de menú que quiero en este fragment
-		// Menú
-		(getActivity() as MainActivity).menu!!.findItem(R.id.menu_compartir_noticia).isVisible = true
-		(getActivity() as MainActivity).menu!!.findItem(R.id.menu_atras).isVisible = true
-
-		//Para ocultar el acceso al menú lateral
-		//Se hace un getActivity haciendole un casting a MainActivity
-		(getActivity() as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-		(getActivity() as MainActivity).supportActionBar!!.setDisplayShowHomeEnabled(false)
-	}
-
-	companion object {
-		// Esto debemos hacerlo porque la opción de copratir está en el menú y debe ser accesible
-		// Como variable de clase
-		var noticiaActual: Noticia? = null
+		tvDetalleTitulo?.text = noticia?.titulo
+		wvDetalleContenido?.loadData(noticia!!.contenido, "text/html", null)
+		Picasso.get().load(noticia?.imagen).into(ivDetalleImagen)
 	}
 }
