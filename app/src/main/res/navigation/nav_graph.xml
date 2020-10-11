@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-            app:startDestination="@id/firstFragment">
-    <fragment android:id="@+id/firstFragment" android:name="com.joseluisgs.rssnoticias.FirstFragment"
-              android:label="fragment_first" tools:layout="@layout/fragment_noticias"/>
+            app:startDestination="@id/noticiasFragment">
+    <fragment android:id="@+id/noticiasFragment" android:name="com.joseluisgs.rssnoticias.ui.noticias.NoticiasFragment"
+              android:label="NoticiasFragment"/>
 </navigation>
