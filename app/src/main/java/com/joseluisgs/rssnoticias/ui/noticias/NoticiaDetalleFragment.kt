@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso
 
 class NoticiaDetalleFragment : Fragment {
 	// El Objeto
-	private var noticia: Noticia? = null
+	private lateinit var noticia: Noticia
 
 	// Elementos de la interfaz
 	private var tvDetalleTitulo: TextView? = null
@@ -30,7 +30,7 @@ class NoticiaDetalleFragment : Fragment {
 	private var fabDetallesIr: FloatingActionButton? = null
 
 	// Constructores
-	constructor(noticia: Noticia?) {
+	constructor(noticia: Noticia) {
 		this.noticia = noticia
 	}
 

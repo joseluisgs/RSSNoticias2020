@@ -15,14 +15,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+
 /**
  * Adaptador de la Lista de Noticias
  */
-class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
-	private val listaNoticias: MutableList<Noticia>, // Fragment Manager para trabajar con el
-	private val fm: FragmentManager
+
+class NoticiasListAdapter(
+	private val listaNoticias: MutableList<Noticia>,
+	private val listener: (Noticia) -> Unit
 ) :
 	RecyclerView.Adapter<NoticiasListAdapter.NoticiaViewHolder>() {
+
+//class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
+//	private val listaNoticias: MutableList<Noticia>, // Fragment Manager para trabajar con el
+//	private val fm: FragmentManager
+//) :
+//	RecyclerView.Adapter<NoticiasListAdapter.NoticiaViewHolder>() {
 
 	/**
 	 * Asociamos la vista
@@ -70,31 +78,34 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 			.resize(375, 200)
 			.into(holder.ivNoticia)
 
+		// Programamos el clic de cada fila
+		holder.itemView.setOnClickListener {
+			// Devolvemos la noticia
+			listener(listaNoticias[position])
+		}
 
 		// Aquí programamos el evento clik que hacemos en un objeto de la lista
-		holder.relativeLayout.setOnClickListener {
-			/*
-			 * Transacción entre fragments. Lo primero es llamar al fragment manager
-			 * A continuación instanciamos un objeto fragment correspondiente al
-			 * fragment que va a entrar y le pasamos el objeto noticia en la posición de
-			 * la lista correspondiente. Iniciamos la transacción, dándole si queremos
-			 * animaciones. Lo más importante es el replace, en el que remplazamos el
-			 * host por el objeto fragment detalle
-			 * De esta manera lo hacemos nosotros de manera manual
-			 */
-			Log.d("Noticias", "He Hecho clic en una fila: $position")
-//				val detalle = NoticiaDetalleFragment(noticia)
-//				val transaction: FragmentTransaction = fm.beginTransaction()
-//				// La animación es opcional
-//				transaction.setCustomAnimations(
-//					R.anim.animacion_fragment1,
-//					R.anim.animacion_fragment1, R.anim.animacion_fragment2, R.anim.animacion_fragment1
-//				)
-//				//Llamamos al replace
-//				transaction.replace(R.id.nav_host_fragment, detalle)
-//				transaction.addToBackStack(null)
-//				transaction.commit()
-		}
+//		holder..setOnClickListener {
+//			/*
+//			 * Transacción entre fragments. Lo primero es llamar al fragment manager
+//			 * A continuación instanciamos un objeto fragment correspondiente al
+//			 * fragment que va a entrar y le pasamos el objeto noticia en la posición de
+//			 * la lista correspondiente. Iniciamos la transacción, dándole si queremos
+//			 * animaciones. Lo más importante es el replace, en el que remplazamos el
+//			 * host por el objeto fragment detalle
+//			 * De esta manera lo hacemos nosotros de manera manual
+//			 */
+//			Log.d("Noticias", "He Hecho clic en una fila: $position")
+//			val detalle = NoticiaDetalleFragment(noticia)
+//			val transaction = fm.beginTransaction()
+//			// La animación es opcional
+////			transaction.setCustomAnimations(R.anim.animacion_fragment1,
+////				R.anim.animacion_fragment1, R.anim.animacion_fragment2, R.anim.animacion_fragment1)
+//			//Llamamos al replace
+//			transaction.replace(R.id.nav_host_fragment, detalle)
+//			transaction.addToBackStack(null)
+//			transaction.commit()
+//		}
 	}
 
 	/**
@@ -140,6 +151,6 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 		var tvHora = itemView.tvItemHoraNoticia
 
 		// Indicamos el Layout para el click
-		var relativeLayout = itemView.itemNoticiaLayout
+		// var relativeLayout = itemView.itemNoticiaLayout
 	}
 }

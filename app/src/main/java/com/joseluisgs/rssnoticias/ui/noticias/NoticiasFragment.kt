@@ -27,9 +27,9 @@ class NoticiasFragment : Fragment() {
     private var noticias = mutableListOf<Noticia>() // Lista
     // Interfaz gráfica
     private var swipeRefreshLayout: SwipeRefreshLayout? = null // Swipe hacia abajo
-    private var adapter: NoticiasListAdapter? = null //Adaptador de Noticias de Recycler
-    private var recycler: RecyclerView? = null // // Recycler donde pondremos las cosas
-    private var tarea: TareaCargarNoticias? = null // Tarea en segundo plano
+    private lateinit var adapter: NoticiasListAdapter //Adaptador de Noticias de Recycler
+    private lateinit var recycler: RecyclerView // // Recycler donde pondremos las cosas
+    private lateinit var tarea: TareaCargarNoticias // Tarea en segundo plano
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +56,8 @@ class NoticiasFragment : Fragment() {
         cargarNoticias()
 
         // Mostramos las vistas de listas y adaptador asociado
-        recycler = getView()?.findViewById(R.id.noticiasRecycler);
-        recycler?.layoutManager = LinearLayoutManager(context);
+        recycler = getView()?.findViewById(R.id.noticiasRecycler)!!;
+        recycler.layoutManager = LinearLayoutManager(context);
         Log.d("Noticias","Asignado al RV");
 
     }
@@ -66,10 +66,10 @@ class NoticiasFragment : Fragment() {
      * Iniciamos el swipe de recarga
      */
     private fun iniciarSwipeRecarga() {
-        swipeRefreshLayout = view!!.findViewById<View>(R.id.swipeRefreshLayout) as SwipeRefreshLayout?
+        swipeRefreshLayout = view!!.findViewById<View>(R.id.swipeRefreshLayout) as SwipeRefreshLayout
         swipeRefreshLayout!!.setColorSchemeResources(R.color.colorPrimaryDark)
         swipeRefreshLayout!!.setProgressBackgroundColorSchemeResource(R.color.textColor)
-        swipeRefreshLayout?.setOnRefreshListener{
+        swipeRefreshLayout!!.setOnRefreshListener{
             cargarNoticias()
         }
     }
@@ -128,17 +128,25 @@ class NoticiasFragment : Fragment() {
          */
         override fun onPostExecute(args: Void?) {
             Log.d("Noticias", "entrando en onPostExecute")
-            adapter = activity?.supportFragmentManager?.let { NoticiasListAdapter(noticias, it) }
-            recycler?.adapter = adapter
+            adapter = NoticiasListAdapter(noticias) {
+                eventoClicFila(it)
+            }
+
+            recycler.adapter = adapter
             // Avismos que ha cambiado
-            adapter?.notifyDataSetChanged()
-            recycler?.setHasFixedSize(true)
-            swipeRefreshLayout?.isRefreshing = false
+            adapter.notifyDataSetChanged()
+            recycler.setHasFixedSize(true)
+            swipeRefreshLayout!!.isRefreshing = false
             Log.d("Noticias", "onPostExecute OK");
             Log.d("Noticias", "Noticias post tam: " + noticias.size.toString());
         }
 
 
     }
+
+    private fun eventoClicFila(noticia: Noticia) {
+        Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
+    }
+
 
 }
