@@ -1,11 +1,12 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
-import com.joseluisgs.rssnoticias.R
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.utils.CirculoTransformacion
 import com.squareup.picasso.Picasso
@@ -31,8 +32,10 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 	 * @return
 	 */
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticiaViewHolder {
-		return NoticiaViewHolder(LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_noticia, parent, false))
+		return NoticiaViewHolder(
+			LayoutInflater.from(parent.context)
+				.inflate(R.layout.item_noticia, parent, false)
+		)
 	}
 
 	/**
@@ -59,7 +62,7 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 		val fechaFormato: String = formatoFecha.format(date)
 		holder.tvFecha.text = fechaFormato
 		//Sacamos la hora
-		holder.tvHora.setText(listaNoticias[position].fecha.substring(16, 25))
+		holder.tvHora.text = listaNoticias[position].fecha.substring(16, 25)
 		//Usando Picasso para poder obtener las fotos y redondearlas
 		Picasso.get()
 			.load(listaNoticias[position].imagen) //Instanciamos un objeto de la clase (creada más abajo) para redondear la imagen
@@ -69,30 +72,29 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 
 
 		// Aquí programamos el evento clik que hacemos en un objeto de la lista
-		/*holder.relativeLayout.setOnClickListener{
-			fun onClick(v: View?) {
-				*//**
-				 * Transacción entre fragments. Lo primero es llamar al fragment manager
-				 * A continuación instanciamos un objeto fragment correspondiente al
-				 * fragment que va a entrar y le pasamos el objeto noticia en la posición de
-				 * la lista correspondiente. Iniciamos la transacción, dándole si queremos
-				 * animaciones. Lo más importante es el replace, en el que remplazamos el
-				 * host por el objeto fragment detalle
-				 * De esta manera lo hacemos nosotros de manera manual
-				 *//*
-				val detalle = NoticiaDetalleFragment(noticia)
-				val transaction: FragmentTransaction = fm.beginTransaction()
-				// La animación es opcional
-				transaction.setCustomAnimations(
-					R.anim.animacion_fragment1,
-					R.anim.animacion_fragment1, R.anim.animacion_fragment2, R.anim.animacion_fragment1
-				)
-				//Llamamos al replace
-				transaction.replace(R.id.nav_host_fragment, detalle)
-				transaction.addToBackStack(null)
-				transaction.commit()
-			}
-		}*/
+		holder.relativeLayout.setOnClickListener {
+			/*
+			 * Transacción entre fragments. Lo primero es llamar al fragment manager
+			 * A continuación instanciamos un objeto fragment correspondiente al
+			 * fragment que va a entrar y le pasamos el objeto noticia en la posición de
+			 * la lista correspondiente. Iniciamos la transacción, dándole si queremos
+			 * animaciones. Lo más importante es el replace, en el que remplazamos el
+			 * host por el objeto fragment detalle
+			 * De esta manera lo hacemos nosotros de manera manual
+			 */
+			Log.d("Noticias", "He Hecho clic en una fila: $position")
+//				val detalle = NoticiaDetalleFragment(noticia)
+//				val transaction: FragmentTransaction = fm.beginTransaction()
+//				// La animación es opcional
+//				transaction.setCustomAnimations(
+//					R.anim.animacion_fragment1,
+//					R.anim.animacion_fragment1, R.anim.animacion_fragment2, R.anim.animacion_fragment1
+//				)
+//				//Llamamos al replace
+//				transaction.replace(R.id.nav_host_fragment, detalle)
+//				transaction.addToBackStack(null)
+//				transaction.commit()
+		}
 	}
 
 	/**
@@ -131,9 +133,13 @@ class NoticiasListAdapter(// Objeto con el modelo de datos (lista)
 	 * Holder que encapsula los objetos a mostrar en la lista
 	 */
 	class NoticiaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+		// Elementos graficos con los que nos asociamos
 		var ivNoticia = itemView.ivItemImagenNoticia
 		var tvTitular = itemView.tvItemTitularNoticia
 		var tvFecha = itemView.tvItemFechaNoticia
 		var tvHora = itemView.tvItemHoraNoticia
+
+		// Indicamos el Layout para el click
+		var relativeLayout = itemView.itemNoticiaLayout
 	}
 }
