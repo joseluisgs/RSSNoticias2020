@@ -234,6 +234,35 @@ class NoticiasFragment : Fragment() {
         adapter.restoreItem(noticia, position);
     }
 
+
+    /**
+     * Evento cli asociado a una fila
+     * @param noticia Noticia
+     */
+    private fun eventoClicFila(noticia: Noticia) {
+        if((activity as MainActivity?)!!.isClicEventoFila) {
+            Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
+            abrirNoticia(noticia)
+        }
+    }
+
+    /**
+     * Abre una noticia como Fragment
+     * @param noticia Noticia
+     */
+    private fun abrirNoticia(noticia: Noticia) {
+        val noticiaDetalle = NoticiaDetalleFragment(noticia)
+        val transaction = activity!!.supportFragmentManager.beginTransaction()
+        // animaciones
+        //        transaction.setCustomAnimations(R.anim.animacion_fragment1,
+        //        	R.anim.animacion_fragment1, R.anim.animacion_fragment2,
+        //        	R.anim.animacion_fragment1)
+        //Llamamos al replace
+        transaction.replace(R.id.fragment_noticias, noticiaDetalle)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
     /**
      * Tarea asíncrona para la carga de noticias
      */
@@ -294,29 +323,5 @@ class NoticiasFragment : Fragment() {
         }
 
 
-    }
-
-    private fun eventoClicFila(noticia: Noticia) {
-        if((activity as MainActivity?)!!.isClicEventoFila) {
-            Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
-            abrirNoticia(noticia)
-        }
-    }
-
-    /**
-     * Abre una noticia como Fragment
-     * @param noticia Noticia
-     */
-    private fun abrirNoticia(noticia: Noticia) {
-        val noticiaDetalle = NoticiaDetalleFragment(noticia)
-        val transaction = activity!!.supportFragmentManager.beginTransaction()
-        // animaciones
-        //        transaction.setCustomAnimations(R.anim.animacion_fragment1,
-        //        	R.anim.animacion_fragment1, R.anim.animacion_fragment2,
-        //        	R.anim.animacion_fragment1)
-        //Llamamos al replace
-        transaction.replace(R.id.fragment_noticias, noticiaDetalle)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }
