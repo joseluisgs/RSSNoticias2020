@@ -53,7 +53,6 @@ class NoticiasListAdapter(
 	 * @param position
 	 */
 	override fun onBindViewHolder(holder: NoticiaViewHolder, position: Int) {
-		val noticia = listaNoticias[position]
 		var titular: String = listaNoticias[position].titulo
 
 		//Controlamos la longitud para que si llega a una cantidad de caracteres, recortarlo
@@ -78,34 +77,12 @@ class NoticiasListAdapter(
 			.resize(375, 200)
 			.into(holder.ivNoticia)
 
-		// Programamos el clic de cada fila
-		holder.itemView.setOnClickListener {
+		// Programamos el clic de cada fila (itemView)
+		holder.tvTitular
+			.setOnClickListener {
 			// Devolvemos la noticia
 			listener(listaNoticias[position])
 		}
-
-		// Aquí programamos el evento clik que hacemos en un objeto de la lista
-//		holder..setOnClickListener {
-//			/*
-//			 * Transacción entre fragments. Lo primero es llamar al fragment manager
-//			 * A continuación instanciamos un objeto fragment correspondiente al
-//			 * fragment que va a entrar y le pasamos el objeto noticia en la posición de
-//			 * la lista correspondiente. Iniciamos la transacción, dándole si queremos
-//			 * animaciones. Lo más importante es el replace, en el que remplazamos el
-//			 * host por el objeto fragment detalle
-//			 * De esta manera lo hacemos nosotros de manera manual
-//			 */
-//			Log.d("Noticias", "He Hecho clic en una fila: $position")
-//			val detalle = NoticiaDetalleFragment(noticia)
-//			val transaction = fm.beginTransaction()
-//			// La animación es opcional
-////			transaction.setCustomAnimations(R.anim.animacion_fragment1,
-////				R.anim.animacion_fragment1, R.anim.animacion_fragment2, R.anim.animacion_fragment1)
-//			//Llamamos al replace
-//			transaction.replace(R.id.nav_host_fragment, detalle)
-//			transaction.addToBackStack(null)
-//			transaction.commit()
-//		}
 	}
 
 	/**

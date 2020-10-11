@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.joseluisgs.rssnoticias.MainActivity
 import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.rss.RSSController
@@ -146,18 +147,18 @@ class NoticiasFragment : Fragment() {
     }
 
     private fun eventoClicFila(noticia: Noticia) {
-        Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
-        val noticia = NoticiaDetalleFragment(noticia)
-        val transaction = activity!!.supportFragmentManager.beginTransaction()
-        // animaciones
-//		transaction.setCustomAnimations(R.anim.animacion_fragment1,
-//			R.anim.animacion_fragment1, R.anim.animacion_fragment2,
-//			R.anim.animacion_fragment1)
-        //Llamamos al replace
-        transaction.replace(R.id.fragment_noticias, noticia)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        if((activity as MainActivity?)!!.isClicEventoFila) {
+            Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
+            val noticia = NoticiaDetalleFragment(noticia)
+            val transaction = activity!!.supportFragmentManager.beginTransaction()
+            // animaciones
+//        transaction.setCustomAnimations(R.anim.animacion_fragment1,
+//        	R.anim.animacion_fragment1, R.anim.animacion_fragment2,
+//        	R.anim.animacion_fragment1)
+            //Llamamos al replace
+            transaction.replace(R.id.fragment_noticias, noticia)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
-
-
 }

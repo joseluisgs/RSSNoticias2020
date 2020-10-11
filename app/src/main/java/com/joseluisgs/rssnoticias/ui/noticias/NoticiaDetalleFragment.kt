@@ -19,9 +19,7 @@ import com.joseluisgs.rssnoticias.utils.Utils
 import com.squareup.picasso.Picasso
 
 
-class NoticiaDetalleFragment : Fragment {
-	// El Objeto
-	private lateinit var noticia: Noticia
+class NoticiaDetalleFragment(private var noticia: Noticia) : Fragment() {
 
 	// Elementos de la interfaz
 	private lateinit var tvDetalleTitulo: TextView
@@ -29,12 +27,6 @@ class NoticiaDetalleFragment : Fragment {
 	private lateinit var ivDetalleImagen: ImageView
 	private lateinit var fabDetallesIr: FloatingActionButton
 
-	// Constructores
-	constructor(noticia: Noticia) {
-		this.noticia = noticia
-	}
-
-	constructor() {}
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +46,8 @@ class NoticiaDetalleFragment : Fragment {
 	 * Iniciamos la intrfaz
 	 */
 	private fun initUI() {
+		// invalidamos el resto de eventos de fila
+		(activity as MainActivity?)!!.isClicEventoFila = false
 		// Actualizamos el menú
 		initMenuOpciones()
 		// Obtenemos los elementos de la interfaz
@@ -68,9 +62,9 @@ class NoticiaDetalleFragment : Fragment {
 	 * Muestra el menú con las opciones
 	 */
 	private fun initMenuOpciones() {
-		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_atras).isVisible = true
-		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_compartir_noticia).isVisible = true
-		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_acerca_de).isVisible = false
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_atras).isVisible = true
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_compartir_noticia).isVisible = true
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_acerca_de).isVisible = false
 	}
 
 
