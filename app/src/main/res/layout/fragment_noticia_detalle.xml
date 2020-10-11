@@ -13,7 +13,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:background="#EEEDFC">
+            app:layout_constraintTop_toTopOf="parent" android:background="@color/colorFondo">
 
         <TextView
                 android:id="@+id/tvNoticiaDetalleTitular"
@@ -25,9 +25,9 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/design_default_color_primary_dark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" android:text="@string/titular_noticia"/>
 
         <ImageView
                 android:id="@+id/ivNoticiaDetalleImagen"
@@ -42,7 +42,7 @@
         <WebView
                 android:id="@+id/wvNoticiaDetalleContenido"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="524dp"
                 android:layout_below="@id/ivNoticiaDetalleImagen"
                 android:layout_marginTop="10dp"/>
 
@@ -54,7 +54,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#874EF1"
+                android:backgroundTint="@color/colorAccent"
                 android:clickable="true"
                 app:srcCompat="@android:drawable/ic_menu_view"/>
     </RelativeLayout>

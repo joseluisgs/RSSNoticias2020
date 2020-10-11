@@ -24,10 +24,10 @@ class NoticiaDetalleFragment : Fragment {
 	private lateinit var noticia: Noticia
 
 	// Elementos de la interfaz
-	private var tvDetalleTitulo: TextView? = null
-	private var wvDetalleContenido: WebView? = null
-	private var ivDetalleImagen: ImageView? = null
-	private var fabDetallesIr: FloatingActionButton? = null
+	private lateinit var tvDetalleTitulo: TextView
+	private lateinit var wvDetalleContenido: WebView
+	private lateinit var ivDetalleImagen: ImageView
+	private lateinit var fabDetallesIr: FloatingActionButton
 
 	// Constructores
 	constructor(noticia: Noticia) {
@@ -70,6 +70,7 @@ class NoticiaDetalleFragment : Fragment {
 	private fun initMenuOpciones() {
 		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_atras).isVisible = true
 		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_compartir_noticia).isVisible = true
+		(activity as MainActivity?)!!.menu!!.findItem(R.id.menu_acerca_de).isVisible = false
 	}
 
 
@@ -77,10 +78,10 @@ class NoticiaDetalleFragment : Fragment {
 	 * Inicia la componentes de la IU
 	 */
 	private fun iniciarComponentesIU() {
-		tvDetalleTitulo = view?.findViewById(R.id.tvNoticiaDetalleTitular)
-		wvDetalleContenido = view?.findViewById(R.id.wvNoticiaDetalleContenido)
-		ivDetalleImagen = view?.findViewById(R.id.ivNoticiaDetalleImagen)
-		fabDetallesIr = view?.findViewById(R.id.fabNoticiaDetalleIr)
+		tvDetalleTitulo = view!!.findViewById(R.id.tvNoticiaDetalleTitular)
+		wvDetalleContenido = view!!.findViewById(R.id.wvNoticiaDetalleContenido)
+		ivDetalleImagen = view!!.findViewById(R.id.ivNoticiaDetalleImagen)
+		fabDetallesIr = view!!.findViewById(R.id.fabNoticiaDetalleIr)
 	}
 
 	/**
@@ -88,15 +89,19 @@ class NoticiaDetalleFragment : Fragment {
 	 */
 	private fun initBotonesEventos() {
 		// Abrimos la noticia
-		fabDetallesIr!!.setOnClickListener { Utils.abrirURL(activity, noticia!!.link) }
+		fabDetallesIr.setOnClickListener { Utils.abrirURL(activity, noticia.link) }
 	}
 
 	/**
 	 * Procesamos una noticia
 	 */
 	private fun procesarNoticia() {
-		tvDetalleTitulo?.text = noticia?.titulo
-		wvDetalleContenido?.loadData(noticia!!.contenido, "text/html", null)
-		Picasso.get().load(noticia?.imagen).into(ivDetalleImagen)
+		tvDetalleTitulo.text = noticia.titulo
+		// A veces no tenemos contenido solo descripcion
+		if(noticia.contenido.length>1)
+			wvDetalleContenido.loadData(noticia.contenido, "text/html", null)
+		else
+			wvDetalleContenido.loadData(noticia.descripcion, "text/html", null)
+		Picasso.get().load(noticia.imagen).into(ivDetalleImagen)
 	}
 }

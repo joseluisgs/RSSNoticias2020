@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.rss.RSSController
+import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
 import com.joseluisgs.rssnoticias.utils.Utils
 
 
@@ -146,6 +147,16 @@ class NoticiasFragment : Fragment() {
 
     private fun eventoClicFila(noticia: Noticia) {
         Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
+        val noticia = NoticiaDetalleFragment(noticia)
+        val transaction = activity!!.supportFragmentManager.beginTransaction()
+        // animaciones
+//		transaction.setCustomAnimations(R.anim.animacion_fragment1,
+//			R.anim.animacion_fragment1, R.anim.animacion_fragment2,
+//			R.anim.animacion_fragment1)
+        //Llamamos al replace
+        transaction.replace(R.id.fragment_noticias, noticia)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
