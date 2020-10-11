@@ -6,13 +6,13 @@
                                                    android:layout_height="match_parent"
                                                    android:id="@+id/fragment_noticias">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+            android:id="@+id/noticiasSwipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" android:id="@+id/noticiasScroll">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -28,7 +28,7 @@
         </ScrollView>
 
         <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/noticiasProgressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="117dp"
                 android:layout_height="78dp"

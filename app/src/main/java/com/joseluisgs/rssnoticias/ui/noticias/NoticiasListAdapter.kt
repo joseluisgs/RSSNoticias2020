@@ -1,10 +1,8 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
@@ -122,10 +120,10 @@ class NoticiasListAdapter(
 	 */
 	class NoticiaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		// Elementos graficos con los que nos asociamos
-		var ivNoticia = itemView.ivItemImagenNoticia
-		var tvTitular = itemView.tvItemTitularNoticia
-		var tvFecha = itemView.tvItemFechaNoticia
-		var tvHora = itemView.tvItemHoraNoticia
+		var ivNoticia = itemView.itemNoticiaImageView
+		var tvTitular = itemView.itemNoticiaTextTitulat
+		var tvFecha = itemView.itemNoticiaTextFecha
+		var tvHora = itemView.itemNoticiaTextHora
 
 		// Indicamos el Layout para el click
 		// var relativeLayout = itemView.itemNoticiaLayout

@@ -17,7 +17,7 @@
             app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:id="@+id/tvNoticiaDetalleTitular"
+                android:id="@+id/noticiaDetalleTextTitular"
                 android:layout_width="400dp"
                 android:layout_height="52dp"
                 android:layout_marginStart="10dp"
@@ -31,24 +31,24 @@
                 android:textStyle="bold" android:text="@string/titular_noticia"/>
 
         <ImageView
-                android:id="@+id/ivNoticiaDetalleImagen"
+                android:id="@+id/noticiaDetalleImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvNoticiaDetalleTitular"
+                android:layout_below="@id/noticiaDetalleTextTitular"
                 android:layout_centerHorizontal="false"
                 android:layout_marginTop="5dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"/>
 
         <WebView
-                android:id="@+id/wvNoticiaDetalleContenido"
+                android:id="@+id/noticiaDEtalleWebViewContenido"
                 android:layout_width="match_parent"
                 android:layout_height="551dp"
-                android:layout_below="@id/ivNoticiaDetalleImagen"
+                android:layout_below="@id/noticiaDetalleImageView"
                 android:layout_marginTop="10dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabNoticiaDetalleIr"
+                android:id="@+id/noticiaDetalleFabIr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -57,9 +57,9 @@
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/colorAccent"
                 android:clickable="true"
-                app:srcCompat="@android:drawable/ic_menu_view"/>
+                app:srcCompat="@android:drawable/ic_menu_set_as"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabNoticiaDetalleCompartir"
+                android:id="@+id/noticiaDetalleFabCompartir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -67,7 +67,7 @@
                 android:layout_marginBottom="11dp"
                 android:backgroundTint="@color/colorAccent"
                 android:clickable="true"
-                app:srcCompat="@android:drawable/ic_menu_view" android:layout_alignParentLeft="true"
+                app:srcCompat="@android:drawable/ic_menu_share" android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp" android:layout_marginEnd="335dp"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

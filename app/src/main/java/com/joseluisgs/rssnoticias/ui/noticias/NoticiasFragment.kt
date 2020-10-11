@@ -10,13 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.joseluisgs.rssnoticias.MainActivity
 import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.rss.RSSController
-import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
 import com.joseluisgs.rssnoticias.utils.Utils
 import kotlinx.android.synthetic.main.fragment_noticias.*
 
@@ -29,9 +26,7 @@ class NoticiasFragment : Fragment() {
     private val DIR_RSS = "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml" // URL
     private var noticias = mutableListOf<Noticia>() // Lista
     // Interfaz gráfica
-    // private lateinit var refresh: SwipeRefreshLayout // Swipe hacia abajo
     private lateinit var adapter: NoticiasListAdapter //Adaptador de Noticias de Recycler
-    // private lateinit var recycler: RecyclerView // // Recycler donde pondremos las cosas
     private lateinit var tarea: TareaCargarNoticias // Tarea en segundo plano
 
     override fun onCreateView(
@@ -50,9 +45,6 @@ class NoticiasFragment : Fragment() {
     }
 
     private fun initUI() {
-        // Renomb
-        // refresh = swipeRefreshLayout
-        // recycler = noticiasRecycler
 
         // iniciamos el swipe para recargar
         iniciarSwipeRecarga();
@@ -60,22 +52,34 @@ class NoticiasFragment : Fragment() {
         // Cargamos los datos pro primera vez
         cargarNoticias()
 
+        // solo si hemos cargado hacemos sl swipeHorizontal
+        // iniciarSwipeHorizontal();
+
         // Mostramos las vistas de listas y adaptador asociado
 
         noticiasRecycler.layoutManager = LinearLayoutManager(context);
         Log.d("Noticias", "Asignado al RV");
     }
 
+
     /**
      * Iniciamos el swipe de recarga
      */
     private fun iniciarSwipeRecarga() {
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark)
-        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.textColor)
-        swipeRefreshLayout.setOnRefreshListener{
+        noticiasSwipe.setColorSchemeResources(R.color.colorPrimaryDark)
+        noticiasSwipe.setProgressBackgroundColorSchemeResource(R.color.textColor)
+        noticiasSwipe.setOnRefreshListener{
             cargarNoticias()
         }
     }
+
+    /**
+     * Realiza el swipe horizontal si es necesario
+     */
+    private fun iniciarSwipeHorizontal() {
+        TODO("Not yet implemented")
+    }
+
 
     /**
      * Carga las noticias
@@ -104,8 +108,8 @@ class NoticiasFragment : Fragment() {
                 (context as Activity).runOnUiThread {
                     Toast.makeText(context, "Active la conexión a la red", Toast.LENGTH_LONG).show()
                 }
-                if (swipeRefreshLayout!!.isRefreshing) {
-                    swipeRefreshLayout!!.isRefreshing = false
+                if (noticiasSwipe.isRefreshing) {
+                    noticiasSwipe.isRefreshing = false
                 }
             }
             Toast.makeText(context, "Obteniendo noticias", Toast.LENGTH_LONG).show()
@@ -139,7 +143,7 @@ class NoticiasFragment : Fragment() {
             // Avismos que ha cambiado
             adapter.notifyDataSetChanged()
             noticiasRecycler.setHasFixedSize(true)
-            swipeRefreshLayout!!.isRefreshing = false
+            noticiasSwipe.isRefreshing = false
             Log.d("Noticias", "onPostExecute OK");
             Log.d("Noticias", "Noticias post tam: " + noticias.size.toString());
             Toast.makeText(context, "Noticias descargadas", Toast.LENGTH_LONG).show()
@@ -151,14 +155,14 @@ class NoticiasFragment : Fragment() {
     private fun eventoClicFila(noticia: Noticia) {
         if((activity as MainActivity?)!!.isClicEventoFila) {
             Log.d("Noticias", "Has hecho clic en la noticia: $noticia")
-            val noticia = NoticiaDetalleFragment(noticia)
+            val noticiaDetalle = NoticiaDetalleFragment(noticia)
             val transaction = activity!!.supportFragmentManager.beginTransaction()
             // animaciones
 //        transaction.setCustomAnimations(R.anim.animacion_fragment1,
 //        	R.anim.animacion_fragment1, R.anim.animacion_fragment2,
 //        	R.anim.animacion_fragment1)
             //Llamamos al replace
-            transaction.replace(R.id.fragment_noticias, noticia)
+            transaction.replace(R.id.fragment_noticias, noticiaDetalle)
             transaction.addToBackStack(null)
             transaction.commit()
         }

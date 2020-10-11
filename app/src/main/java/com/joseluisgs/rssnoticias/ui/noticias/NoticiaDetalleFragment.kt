@@ -59,20 +59,20 @@ class NoticiaDetalleFragment(private val noticia: Noticia) : Fragment() {
 	 */
 	private fun initBotonesEventos() {
 		// Abrimos la noticia
-		fabNoticiaDetalleIr.setOnClickListener { Utils.abrirURL(activity!!, noticia.link) }
-		fabNoticiaDetalleCompartir.setOnClickListener { Utils.compartirNoticia(activity!!, noticia) }
+		noticiaDetalleFabIr.setOnClickListener { Utils.abrirURL(activity!!, noticia.link) }
+		noticiaDetalleFabCompartir.setOnClickListener { Utils.compartirNoticia(activity!!, noticia) }
 	}
 
 	/**
 	 * Procesamos una noticia
 	 */
 	private fun procesarNoticia() {
-		tvNoticiaDetalleTitular.text = noticia.titulo
+		noticiaDetalleTextTitular.text = noticia.titulo
 		// A veces no tenemos contenido solo descripcion
 		if (noticia.contenido.length > 1)
-			wvNoticiaDetalleContenido.loadData(noticia.contenido, "text/html", null)
+			noticiaDEtalleWebViewContenido.loadData(noticia.contenido, "text/html", null)
 		else
-			wvNoticiaDetalleContenido.loadData(noticia.descripcion, "text/html", null)
-		Picasso.get().load(noticia.imagen).into(ivNoticiaDetalleImagen)
+			noticiaDEtalleWebViewContenido.loadData(noticia.descripcion, "text/html", null)
+		Picasso.get().load(noticia.imagen).into(noticiaDetalleImageView)
 	}
 }
