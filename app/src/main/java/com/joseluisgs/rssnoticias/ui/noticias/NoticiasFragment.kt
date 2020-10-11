@@ -9,12 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.rss.RSSController
 import com.joseluisgs.rssnoticias.utils.Utils
-import java.security.AccessController.getContext
 
 
 /**
@@ -22,10 +23,13 @@ import java.security.AccessController.getContext
  */
 class NoticiasFragment : Fragment() {
     // Mis variables
-    private val DIR_RSS = "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml"
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null
-    private var tarea: TareaCargarNoticias? = null
-    private var noticias = mutableListOf<Noticia>()
+    private val DIR_RSS = "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml" // URL
+    private var noticias = mutableListOf<Noticia>() // Lista
+    // Interfaz gráfica
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null // Swipe hacia abajo
+    private var adapter: NoticiasListAdapter? = null //Adaptador de Noticias de Recycler
+    private var recycler: RecyclerView? = null // // Recycler donde pondremos las cosas
+    private var tarea: TareaCargarNoticias? = null // Tarea en segundo plano
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,14 @@ class NoticiasFragment : Fragment() {
         // iniciamos el swipe para recargar
         iniciarSwipeRecarga();
 
+        // Cargamos los datos pro primera vez
+        cargarNoticias()
+
+        // Mostramos las vistas de listas y adaptador asociado
+        recycler = getView()?.findViewById(R.id.noticiasRecycler);
+        recycler?.layoutManager = LinearLayoutManager(context);
+        Log.d("Noticias","Asignado al RV");
+
     }
 
     /**
@@ -55,13 +67,19 @@ class NoticiasFragment : Fragment() {
      */
     private fun iniciarSwipeRecarga() {
         swipeRefreshLayout = view!!.findViewById<View>(R.id.swipeRefreshLayout) as SwipeRefreshLayout?
-        swipeRefreshLayout?.setOnRefreshListener{ //Se le ponen los colores que queramos
-            swipeRefreshLayout!!.setColorSchemeResources(R.color.colorPrimary)
-            swipeRefreshLayout!!.setProgressBackgroundColorSchemeResource(R.color.textColor)
-            //Al refrescar llama a la tarea asíncrona
-            tarea = TareaCargarNoticias()
-            tarea?.execute(DIR_RSS)
+        swipeRefreshLayout!!.setColorSchemeResources(R.color.colorPrimaryDark)
+        swipeRefreshLayout!!.setProgressBackgroundColorSchemeResource(R.color.textColor)
+        swipeRefreshLayout?.setOnRefreshListener{
+            cargarNoticias()
         }
+    }
+
+    /**
+     * Carga las noticias
+     */
+    private fun cargarNoticias() {
+        tarea = TareaCargarNoticias()
+        tarea?.execute(DIR_RSS)
     }
 
 
@@ -81,13 +99,13 @@ class NoticiasFragment : Fragment() {
             if (!Utils.isNetworkAvailable(this@NoticiasFragment)) {
                 cancel(true)
                 (context as Activity).runOnUiThread {
-                    Toast.makeText(context, "NO Conectado a internet, imposible obtener noticias", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Active la conexión a la red", Toast.LENGTH_LONG).show()
                 }
                 if (swipeRefreshLayout!!.isRefreshing) {
                     swipeRefreshLayout!!.isRefreshing = false
                 }
             }
-            Log.d("Noticias", "onPreExecute OK");
+            Toast.makeText(context, "Obteniendo noticias", Toast.LENGTH_LONG).show()
         }
 
         override fun doInBackground(vararg p0: String?): Void? {
@@ -109,13 +127,13 @@ class NoticiasFragment : Fragment() {
          * @param args
          */
         override fun onPostExecute(args: Void?) {
-            Log.d("Noticias", "entrando en onPostExecute");
-//            ad = NoticiasListAdapter(noticias, getFragmentManager())
-//            rv.setAdapter(ad)
-//            // Avismos que ha cambiado
-//            ad.notifyDataSetChanged()
-//            rv.setHasFixedSize(true)
-//            swipeRefreshLayout.setRefreshing(false)
+            Log.d("Noticias", "entrando en onPostExecute")
+            adapter = activity?.supportFragmentManager?.let { NoticiasListAdapter(noticias, it) }
+            recycler?.adapter = adapter
+            // Avismos que ha cambiado
+            adapter?.notifyDataSetChanged()
+            recycler?.setHasFixedSize(true)
+            swipeRefreshLayout?.isRefreshing = false
             Log.d("Noticias", "onPostExecute OK");
             Log.d("Noticias", "Noticias post tam: " + noticias.size.toString());
         }

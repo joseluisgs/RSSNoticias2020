@@ -15,13 +15,14 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:id="@+id/recycler"
+                    android:id="@+id/noticiasRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:layout_editor_absoluteX="222dp"
-                    tools:layout_editor_absoluteY="169dp" android:background="#EEEDFC"/>
+                    tools:layout_editor_absoluteY="169dp"
+                    android:background="@color/colorFondo"
+                    tools:listitem="@layout/item_noticia"
+            />
 
         </ScrollView>
 

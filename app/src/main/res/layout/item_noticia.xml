@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/relativeItemNoticia"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/itemNoticiaLayout"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeightLarge">
 
@@ -14,19 +14,20 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:contentDescription="Icono" />
+            android:contentDescription="Icono" app:srcCompat="@android:mipmap/sym_def_app_icon"/>
 
     <TextView
             android:id="@+id/tvItemTitularNoticia"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_toEndOf="@id/ivItemImagenNoticia"
             android:layout_toRightOf="@id/ivItemImagenNoticia"
             android:gravity="center_vertical"
             android:lines="2"
-            android:textColor="@color/design_default_color_primary_dark"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" android:text="@string/titular_noticia" android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"/>
 
     <TextView
             android:id="@+id/tvItemFechaNoticia"
@@ -36,7 +37,7 @@
             android:gravity="center_vertical"
             android:layout_marginTop="25sp"
             android:layout_marginEnd="10sp"
-            android:textSize="10sp" />
+            android:textSize="10sp" android:text="@string/fecha_noticia" android:textColor="@color/colorPrimary"/>
 
     <TextView
             android:id="@+id/tvItemHoraNoticia"
@@ -45,6 +46,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="20sp"
             android:layout_marginEnd="10sp"
-            android:textSize="10sp" />
+            android:textSize="10sp" android:textColor="@color/colorPrimary" android:text="@string/hora_noticia_rss"/>
 
 </RelativeLayout>
