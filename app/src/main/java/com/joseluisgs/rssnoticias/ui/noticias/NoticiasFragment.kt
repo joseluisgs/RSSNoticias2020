@@ -18,6 +18,7 @@ import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.rss.RSSController
 import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
 import com.joseluisgs.rssnoticias.utils.Utils
+import kotlinx.android.synthetic.main.fragment_noticias.*
 
 
 /**
@@ -28,9 +29,9 @@ class NoticiasFragment : Fragment() {
     private val DIR_RSS = "http://ep00.epimg.net/rss/tags/ultimas_noticias.xml" // URL
     private var noticias = mutableListOf<Noticia>() // Lista
     // Interfaz gráfica
-    private var swipeRefreshLayout: SwipeRefreshLayout? = null // Swipe hacia abajo
+    // private lateinit var refresh: SwipeRefreshLayout // Swipe hacia abajo
     private lateinit var adapter: NoticiasListAdapter //Adaptador de Noticias de Recycler
-    private lateinit var recycler: RecyclerView // // Recycler donde pondremos las cosas
+    // private lateinit var recycler: RecyclerView // // Recycler donde pondremos las cosas
     private lateinit var tarea: TareaCargarNoticias // Tarea en segundo plano
 
     override fun onCreateView(
@@ -43,13 +44,15 @@ class NoticiasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Iniciamos la interfaz
+        initUI()
 
-        // Comprobamos la red
-        if (!Utils.isNetworkAvailable(this)) {
-            Toast.makeText(view.context, "NO Conectado", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(view.context, "SI Conectado", Toast.LENGTH_LONG).show()
-        }
+    }
+
+    private fun initUI() {
+        // Renomb
+        // refresh = swipeRefreshLayout
+        // recycler = noticiasRecycler
 
         // iniciamos el swipe para recargar
         iniciarSwipeRecarga();
@@ -58,20 +61,18 @@ class NoticiasFragment : Fragment() {
         cargarNoticias()
 
         // Mostramos las vistas de listas y adaptador asociado
-        recycler = getView()?.findViewById(R.id.noticiasRecycler)!!;
-        recycler.layoutManager = LinearLayoutManager(context);
-        Log.d("Noticias","Asignado al RV");
 
+        noticiasRecycler.layoutManager = LinearLayoutManager(context);
+        Log.d("Noticias", "Asignado al RV");
     }
 
     /**
      * Iniciamos el swipe de recarga
      */
     private fun iniciarSwipeRecarga() {
-        swipeRefreshLayout = view!!.findViewById<View>(R.id.swipeRefreshLayout) as SwipeRefreshLayout
-        swipeRefreshLayout!!.setColorSchemeResources(R.color.colorPrimaryDark)
-        swipeRefreshLayout!!.setProgressBackgroundColorSchemeResource(R.color.textColor)
-        swipeRefreshLayout!!.setOnRefreshListener{
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark)
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.textColor)
+        swipeRefreshLayout.setOnRefreshListener{
             cargarNoticias()
         }
     }
@@ -134,13 +135,14 @@ class NoticiasFragment : Fragment() {
                 eventoClicFila(it)
             }
 
-            recycler.adapter = adapter
+            noticiasRecycler.adapter = adapter
             // Avismos que ha cambiado
             adapter.notifyDataSetChanged()
-            recycler.setHasFixedSize(true)
+            noticiasRecycler.setHasFixedSize(true)
             swipeRefreshLayout!!.isRefreshing = false
             Log.d("Noticias", "onPostExecute OK");
             Log.d("Noticias", "Noticias post tam: " + noticias.size.toString());
+            Toast.makeText(context, "Noticias descargadas", Toast.LENGTH_LONG).show()
         }
 
 

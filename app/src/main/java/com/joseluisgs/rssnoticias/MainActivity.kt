@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
 
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 		private set
 
 	public var isClicEventoFila = true
+	public lateinit var noticiaActual: Noticia
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

@@ -1,32 +1,19 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
-import com.joseluisgs.rssnoticias.R
-import kotlinx.android.synthetic.main.fragment_noticia_detalle.*
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.joseluisgs.rssnoticias.MainActivity
+import com.joseluisgs.rssnoticias.R
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.utils.Utils
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_noticia_detalle.*
 
 
-class NoticiaDetalleFragment(private var noticia: Noticia) : Fragment() {
-
-	// Elementos de la interfaz
-	private lateinit var tvDetalleTitulo: TextView
-	private lateinit var wvDetalleContenido: WebView
-	private lateinit var ivDetalleImagen: ImageView
-	private lateinit var fabDetallesIr: FloatingActionButton
-
+class NoticiaDetalleFragment(private val noticia: Noticia) : Fragment() {
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +33,11 @@ class NoticiaDetalleFragment(private var noticia: Noticia) : Fragment() {
 	 * Iniciamos la intrfaz
 	 */
 	private fun initUI() {
-		// invalidamos el resto de eventos de fila
+		// invalidamos el resto de eventos de fila e indicamos la noticia actual
 		(activity as MainActivity?)!!.isClicEventoFila = false
+		(activity as MainActivity?)!!.noticiaActual = noticia
 		// Actualizamos el menú
 		initMenuOpciones()
-		// Obtenemos los elementos de la interfaz
-		iniciarComponentesIU()
 		// iniciamos los eventos Asociados
 		initBotonesEventos()
 		// Procesamos la noticia como interfaz
@@ -63,39 +49,30 @@ class NoticiaDetalleFragment(private var noticia: Noticia) : Fragment() {
 	 */
 	private fun initMenuOpciones() {
 		(activity as MainActivity?)!!.menu.findItem(R.id.menu_atras).isVisible = true
-		(activity as MainActivity?)!!.menu.findItem(R.id.menu_compartir_noticia).isVisible = true
+		// (activity as MainActivity?)!!.menu.findItem(R.id.menu_compartir_noticia).isVisible = true
 		(activity as MainActivity?)!!.menu.findItem(R.id.menu_acerca_de).isVisible = false
 	}
 
-
-	/**
-	 * Inicia la componentes de la IU
-	 */
-	private fun iniciarComponentesIU() {
-		tvDetalleTitulo = view!!.findViewById(R.id.tvNoticiaDetalleTitular)
-		wvDetalleContenido = view!!.findViewById(R.id.wvNoticiaDetalleContenido)
-		ivDetalleImagen = view!!.findViewById(R.id.ivNoticiaDetalleImagen)
-		fabDetallesIr = view!!.findViewById(R.id.fabNoticiaDetalleIr)
-	}
 
 	/**
 	 * Inicia los Eventos de la IU
 	 */
 	private fun initBotonesEventos() {
 		// Abrimos la noticia
-		fabDetallesIr.setOnClickListener { Utils.abrirURL(activity, noticia.link) }
+		fabNoticiaDetalleIr.setOnClickListener { Utils.abrirURL(activity!!, noticia.link) }
+		fabNoticiaDetalleCompartir.setOnClickListener { Utils.compartirNoticia(activity!!, noticia) }
 	}
 
 	/**
 	 * Procesamos una noticia
 	 */
 	private fun procesarNoticia() {
-		tvDetalleTitulo.text = noticia.titulo
+		tvNoticiaDetalleTitular.text = noticia.titulo
 		// A veces no tenemos contenido solo descripcion
-		if(noticia.contenido.length>1)
-			wvDetalleContenido.loadData(noticia.contenido, "text/html", null)
+		if (noticia.contenido.length > 1)
+			wvNoticiaDetalleContenido.loadData(noticia.contenido, "text/html", null)
 		else
-			wvDetalleContenido.loadData(noticia.descripcion, "text/html", null)
-		Picasso.get().load(noticia.imagen).into(ivDetalleImagen)
+			wvNoticiaDetalleContenido.loadData(noticia.descripcion, "text/html", null)
+		Picasso.get().load(noticia.imagen).into(ivNoticiaDetalleImagen)
 	}
 }

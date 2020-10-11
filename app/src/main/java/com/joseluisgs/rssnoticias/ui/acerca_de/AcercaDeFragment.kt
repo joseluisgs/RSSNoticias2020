@@ -45,6 +45,8 @@ class AcercaDeFragment : Fragment() {
 	 * Inicializamos los elementos de la IU
 	 */
 	private fun initUI() {
+		// Desactivamos los eventos de fila
+		(activity as MainActivity?)!!.isClicEventoFila = false
 		// inicializamos el menu
 		initMenuOpciones()
 		// Eventos de boyones
@@ -58,8 +60,8 @@ class AcercaDeFragment : Fragment() {
 		acercaDeBtnCorreo.setOnClickListener {
 			Utils.mandarEMail(activity, para = "dam@moviles.com", asunto ="contacto")
 		}
-		acercaDeViewGitHub.setOnClickListener { Utils.abrirURL(activity, "https://github.com/joseluisgs") }
-		acercaDeViewTwitter.setOnClickListener { Utils.abrirURL(activity, "https://twitter.com/joseluisgonsan") }
+		acercaDeViewGitHub.setOnClickListener { Utils.abrirURL(activity!!, "https://github.com/joseluisgs") }
+		acercaDeViewTwitter.setOnClickListener { Utils.abrirURL(activity!!, "https://twitter.com/joseluisgonsan") }
 	}
 
 	/**
