@@ -56,7 +56,7 @@ object Utils {
 	 * @param fragment Fragment
 	 * @return Boolean
 	 */
-	private fun isNetworkAvailable(fragment: Fragment): Boolean {
+	fun isNetworkAvailable(fragment: Fragment): Boolean {
 		val connectivityManager =
 			fragment.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 		val activeNetworkInfo = connectivityManager.activeNetworkInfo

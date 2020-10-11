@@ -1,5 +1,6 @@
 package com.joseluisgs.rssnoticias.rss
 
+import android.util.Log
 import org.w3c.dom.DOMException
 import org.w3c.dom.Element
 import org.xml.sax.SAXException
@@ -21,6 +22,7 @@ object RSSController {
 		val factory = DocumentBuilderFactory.newInstance()
 		// Lista de noticias
 		val noticias = mutableListOf<Noticia>()
+		// Log.d("Noticias", "Noticias Controller uri: " + uri)
 
 		try {
 			// Filtramos por elementos del RSS
@@ -69,15 +71,16 @@ object RSSController {
 				}
 				noticias.add(noticia)
 			}
+			// Log.d("Noticias", "Noticias Controller tam: " + noticias.size.toString())
 			return noticias
 		} catch (e: ParserConfigurationException) {
-			println("Error: " + e.message)
+			Log.d("Noticias","Error: " + e.message)
 		} catch (e: IOException) {
-			println("Error: " + e.message)
+			Log.d("Noticias", "Error: " + e.message)
 		} catch (e: DOMException) {
-			println("Error: " + e.message)
+			Log.d("Noticias", "Error: " + e.message)
 		} catch (e: SAXException) {
-			println("Error: " + e.message)
+			Log.d("Noticias","Error: " + e.message)
 		}
 		return noticias
 	}
