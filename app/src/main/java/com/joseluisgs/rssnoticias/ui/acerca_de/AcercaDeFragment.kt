@@ -69,7 +69,9 @@ class AcercaDeFragment : Fragment() {
 	 */
 	private fun initMenuOpciones() {
 		(activity as MainActivity?)!!.menu.findItem(R.id.menu_atras).isVisible = true
-		(activity as MainActivity?)!!.menu.findItem(R.id.menu_acerca_de).isVisible = false
+		// (activity as MainActivity?)!!.menu.findItem(R.id.menu_acerca_de).isVisible = false
+		(activity as MainActivity?)!!.menu.findItem(R.id.menu_mas).isVisible = false
+
 	}
 
 
