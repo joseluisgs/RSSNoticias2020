@@ -5,6 +5,7 @@ package com.joseluisgs.rssnoticias
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.joseluisgs.rssnoticias.rss.Noticia
 import com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment
@@ -46,6 +47,10 @@ class MainActivity : AppCompatActivity() {
 			R.id.menu_atras -> {
 				onBackPressed()
 				this.isClicEventoFila = true
+				return true
+			}
+			R.id.menu_settings -> {
+				abrirSettings()
 				return true
 			}
 			else -> super.onOptionsItemSelected(item)
@@ -100,5 +105,12 @@ class MainActivity : AppCompatActivity() {
 		} catch (ex: Exception) {
 			super.onBackPressed()
 		}
+	}
+
+	/**
+	 * Abre Settings
+	 */
+	private fun abrirSettings() {
+		Toast.makeText(this,"Has pulsado settings", Toast.LENGTH_SHORT).show()
 	}
 }

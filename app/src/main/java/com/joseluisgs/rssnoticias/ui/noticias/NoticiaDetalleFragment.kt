@@ -1,9 +1,7 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.joseluisgs.rssnoticias.MainActivity
 import com.joseluisgs.rssnoticias.R
@@ -19,6 +17,8 @@ class NoticiaDetalleFragment(private val noticia: Noticia) : Fragment() {
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
+		// Para decir que el menú tendrá cambios
+		// setHasOptionsMenu(true)
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.fragment_noticia_detalle, container, false)
 	}
@@ -52,6 +52,15 @@ class NoticiaDetalleFragment(private val noticia: Noticia) : Fragment() {
 		// (activity as MainActivity?)!!.menu.findItem(R.id.menu_compartir_noticia).isVisible = true
 		(activity as MainActivity?)!!.menu.findItem(R.id.menu_mas).isVisible = false
 	}
+
+//	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//		super.onCreateOptionsMenu(menu, inflater)
+//		// inflater.inflate(R.menu.menu_main,menu)
+//		menu.findItem(R.id.menu_mas).isVisible = true
+//		menu.findItem(R.id.menu_atras).isVisible = true
+//	}
+
+
 
 
 	/**
