@@ -15,15 +15,20 @@
             app:showAsAction="ifRoom"/>
 
     <item
-            android:id="@+id/menu_acerca_de"
-            android:icon="@android:drawable/ic_menu_info_details"
-            android:orderInCategory="100"
-            android:title="@string/acerca_de"
-            app:showAsAction="never"/>
+            android:id="@+id/menu_mas"
+            android:icon="@drawable/ic_more_vert"
+            android:title="Más"
+            app:showAsAction="always">
+        <menu>
+            <item
+                    android:id="@+id/menu_acerca_de"
+                    android:icon="@android:drawable/ic_menu_info_details"
+                    android:title="@string/acerca_de"/>
 
-    <item
-            android:id="@+id/menu_settings"
-            android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="never"/>
+            <item
+                    android:id="@+id/menu_settings"
+                    android:title="@string/action_settings"
+                    android:icon="@android:drawable/ic_menu_preferences"/>
+        </menu>
+    </item>
 </menu>
