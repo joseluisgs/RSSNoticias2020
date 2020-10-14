@@ -56,8 +56,9 @@ class MainActivity : AppCompatActivity() {
 	 * Oculta las opciones del menú
 	 */
 	private fun initMenuOpciones() {
+		this.menu.findItem(R.id.menu_mas).isVisible = true
         this.menu.findItem(R.id.menu_atras).isVisible = false
-        this.menu.findItem(R.id.menu_settings).isVisible = false
+        this.menu.findItem(R.id.menu_settings).isVisible = true
         this.menu.findItem(R.id.menu_compartir_noticia).isVisible = false
 		this.menu.findItem(R.id.menu_acerca_de).isVisible = true
 	}
