@@ -200,7 +200,7 @@ class NoticiasFragment : Fragment() {
      */
     private fun cargarNoticias() {
         tarea = TareaCargarNoticias()
-        tarea?.execute(DIR_RSS)
+        tarea.execute(DIR_RSS)
     }
 
     /**

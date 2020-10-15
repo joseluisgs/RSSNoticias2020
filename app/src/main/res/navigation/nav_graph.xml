@@ -5,5 +5,12 @@
     android:id="@+id/nav_graph"
             app:startDestination="@id/noticiasFragment">
     <fragment android:id="@+id/noticiasFragment" android:name="com.joseluisgs.rssnoticias.ui.noticias.NoticiasFragment"
-              android:label="NoticiasFragment"/>
+              android:label="NoticiasFragment">
+        <action android:id="@+id/action_noticiasFragment_to_acercaDeFragment" app:destination="@id/acercaDeFragment"/>
+    </fragment>
+    <fragment android:id="@+id/acercaDeFragment" android:name="com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment"
+              android:label="fragment_acerca_de" tools:layout="@layout/fragment_acerca_de">
+        <action android:id="@+id/action_acercaDeFragment_to_noticiasFragment" app:destination="@id/noticiasFragment"
+                app:popUpTo="@id/noticiasFragment"/>
+    </fragment>
 </navigation>
