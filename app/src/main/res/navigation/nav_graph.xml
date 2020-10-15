@@ -10,6 +10,7 @@
     </fragment>
     <fragment android:id="@+id/acercaDeFragment" android:name="com.joseluisgs.rssnoticias.ui.acerca_de.AcercaDeFragment"
               android:label="fragment_acerca_de" tools:layout="@layout/fragment_acerca_de">
-        <action android:id="@+id/action_acercaDeFragment_to_noticiasFragment" app:destination="@id/noticiasFragment"/>
+        <action android:id="@+id/action_acercaDeFragment_to_noticiasFragment" app:destination="@id/noticiasFragment"
+                app:popUpTo="@id/noticiasFragment"/>
     </fragment>
 </navigation>

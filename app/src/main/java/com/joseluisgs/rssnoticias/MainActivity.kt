@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 	private fun abrirAcercaDe() {
 		/**
 		 * Primera Forma:
-		 * crear el grafo de navegación y crear la acción
+		 * crear el grafo de navegación y crear la acción. Esto es ideal en Fragment fijos
 		 */
 		Navigation.findNavController(this, R.id.fragment_noticias).navigate(R.id.action_noticiasFragment_to_acercaDeFragment)
 		/**
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
 //		val acercaDe = AcercaDeFragment()
 //		val transaction = supportFragmentManager.beginTransaction()
-//		// animaciones
+//		// animaciones no son obligatorias, coge las de por defecto
 ////		transaction.setCustomAnimations(R.anim.animacion_fragment1,
 ////			R.anim.animacion_fragment1, R.anim.animacion_fragment2,
 ////			R.anim.animacion_fragment1)
@@ -105,6 +105,17 @@ class MainActivity : AppCompatActivity() {
 	 * Elimina un fragment de la pila
 	 */
 	override fun onBackPressed() {
+		/**
+		 * Primera forma
+		 * Usamos el grafo de navegación, en Este caso no funciona porque hay que casar viene los Fragments, pero podríamos hacerlo
+		 * Y usamos la misma felcha o función para volver de las noticias, por eso es mjeor usar la genérica de desapilar
+		 * de la pila de fragments
+		 */
+		 // Navigation.findNavController(this, R.id.fragment_aerca_de).navigate(R.id.action_acercaDeFragment_to_noticiasFragment)
+
+		/**
+		 * Segunda forma: Sacamos de la pila el fragmento
+		 */
 		try {
 				if (supportFragmentManager.backStackEntryCount > 0) {
 					supportFragmentManager.popBackStackImmediate()
