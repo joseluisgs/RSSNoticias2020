@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 /**
  * Adaptador de la Lista de Noticias
  */
@@ -79,8 +78,8 @@ class NoticiasListAdapter(
 		// Programamos el clic de cada fila (itemView)
 		holder.itemView
 			.setOnClickListener {
-				// Devolvemos para que este evento lo procese la función que hemos pasado como paráetros que se llama listen
-				// Si miras en noticias esta función es clicNoticias. Lo hago así para que todos los ventos se procesen fueram
+				// Devolvemos para que este evento lo procese la función que hemos pasado como parámetros que se llama listen
+				// Si miras en noticias esta función es clicNoticias. Lo hago así para que todos los eventos se procesen fuera
 				listener(listaNoticias[position])
 			}
 
@@ -88,9 +87,9 @@ class NoticiasListAdapter(
 		// O enviarlo fuera tambien como está hecho antes
 		holder.ivNoticia
 			.setOnClickListener {
-			// Devolvemos la noticia
+				// Devolvemos la noticia
 				Log.d("Noticias", "Has hecho clic en la imagen de la noticia")
-		}
+			}
 
 		holder.tvFecha
 			.setOnClickListener {
