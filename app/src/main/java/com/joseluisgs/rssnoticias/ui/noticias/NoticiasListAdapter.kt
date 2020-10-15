@@ -1,5 +1,6 @@
 package com.joseluisgs.rssnoticias.ui.noticias
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_noticia.view.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 /**
@@ -76,11 +76,26 @@ class NoticiasListAdapter(
 			.into(holder.ivNoticia)
 
 		// Programamos el clic de cada fila (itemView)
-		holder.tvTitular
+		holder.itemView
 			.setOnClickListener {
-			// Devolvemos la noticia
-			listener(listaNoticias[position])
-		}
+				// Devolvemos para que este evento lo procese la función que hemos pasado como parámetros que se llama listen
+				// Si miras en noticias esta función es clicNoticias. Lo hago así para que todos los eventos se procesen fuera
+				listener(listaNoticias[position])
+			}
+
+		// También lo podemos hacer en cada elemento, por ejemplo o usando la fila completa y programar el código aquí y no enviarlo fuera
+		// O enviarlo fuera tambien como está hecho antes
+		holder.ivNoticia
+			.setOnClickListener {
+				// Devolvemos la noticia
+				Log.d("Noticias", "Has hecho clic en la imagen de la noticia")
+			}
+
+		holder.tvFecha
+			.setOnClickListener {
+				// Devolvemos la noticia
+				Log.d("Noticias", "Has hecho clic en la fecha de la noticia" + holder.tvFecha.text)
+			}
 	}
 
 	/**
