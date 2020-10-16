@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,7 +63,9 @@ class NoticiasFragment : Fragment() {
         iniciarSwipeHorizontal();
 
         // Mostramos las vistas de listas y adaptador asociado
-        noticiasRecycler.layoutManager = LinearLayoutManager(context);
+        noticiasRecycler.layoutManager = LinearLayoutManager(context)
+        // noticiasRecycler.layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+        // noticiasRecycler.layoutManager = GridLayoutManager(context, 2);
         Log.d("Noticias", "Asignado al RV");
     }
 
