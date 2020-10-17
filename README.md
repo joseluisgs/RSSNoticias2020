@@ -20,4 +20,4 @@ Sencillo lector RSS usando Kotlin, MVC y algunos elementos importantes como Frag
 
 ## Licencia
 
-Este proyecto esta licenciado bajo licencia **MIT**, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/RSSNoticias2020/blob/master/LISENCE) para su uso docente y educativo.
+Este proyecto esta licenciado bajo licencia **MIT**, si desea saber más, visite el fichero [LICENSE](https://github.com/joseluisgs/RSSNoticias2020/blob/master/LICENSE) para su uso docente y educativo.
